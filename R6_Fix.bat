@@ -14,7 +14,7 @@ taskkill /f /im upc.exe >nul 2>&1
 
 timeout /t 2 /nobreak >nul
 
-powershell -NoProfile -Command "$k='HKCU:\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers'; if (Test-Path $k) { (Get-Item $k).Property | Where-Object { $_ -match 'RainbowSix|Ubisoft|upc\.exe' } | ForEach-Object { Remove-ItemProperty -Path $k -Name $_ -ErrorAction SilentlyContinue } }"
+powershell -NoProfile -Command "foreach ($k in 'HKCU:\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers','HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers') { if (Test-Path $k) { (Get-Item $k).Property | Where-Object { $_ -match 'RainbowSix|Ubisoft|upc\.exe' } | ForEach-Object { Remove-ItemProperty -Path $k -Name $_ -ErrorAction SilentlyContinue } } }"
 
 set "R6PATH=%USERPROFILE%\Documents\My Games\Rainbow Six - Siege"
 
